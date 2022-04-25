@@ -16,7 +16,8 @@ final path = Platform.isWindows
     : Platform.isMacOS
         ? 'lib$base.dylib'
         : 'lib$base.so';
-late final dylib = Platform.isIOS ? DynamicLibrary.process() : DynamicLibrary.open(path);
+late final dylib =
+    Platform.isIOS ? DynamicLibrary.process() : DynamicLibrary.open(path);
 late final api = FlutterRustBridgeExampleImpl(dylib);
 
 void main() => runApp(const MyApp());
@@ -36,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     runPeriodically(_callExampleFfiOne);
-    _callExampleFfiTwo();
+    _callExampleFfiThree();
   }
 
   @override
@@ -47,12 +48,21 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _callExampleFfiOne() async {
     final receivedImage = await api.drawMandelbrot(
-        imageSize: Size(width: 50, height: 50), zoomPoint: examplePoint, scale: generateScale(), numThreads: 4);
+        imageSize: Size(width: 50, height: 50),
+        zoomPoint: examplePoint,
+        scale: generateScale(),
+        numThreads: 4);
     if (mounted) setState(() => exampleImage = receivedImage);
   }
 
   Future<void> _callExampleFfiTwo() async {
-    final receivedText = await api.passingComplexStructs(root: createExampleTree());
+    final receivedText =
+        await api.passingComplexStructs(root: createExampleTree());
+    if (mounted) setState(() => exampleText = receivedText);
+  }
+
+  Future<void> _callExampleFfiThree() async {
+    final receivedText = await api.hello();
     if (mounted) setState(() => exampleText = receivedText);
   }
 }

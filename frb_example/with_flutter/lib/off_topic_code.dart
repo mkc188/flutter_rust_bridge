@@ -54,7 +54,7 @@ Widget buildPageUi(Uint8List? exampleImage, String? exampleText) {
                     Container(height: 8),
                     const Text('Complex struct/class is passed smoothly through FFI'),
                     Container(height: 24),
-                    Text(exampleText ?? '', style: const TextStyle(fontSize: 11, color: Colors.grey)),
+                    SelectableText(exampleText ?? '', style: const TextStyle(fontSize: 11, color: Colors.grey)),
                     Container(height: 8),
                   ],
                 ),

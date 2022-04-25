@@ -3,6 +3,7 @@
     unused,
     clippy::redundant_closure,
     clippy::useless_conversion,
+    clippy::unit_arg,
     non_snake_case
 )]
 // AUTO GENERATED FILE, DO NOT EDIT.
@@ -10,6 +11,8 @@
 
 use crate::api::*;
 use flutter_rust_bridge::*;
+
+// Section: imports
 
 // Section: wire functions
 
@@ -51,6 +54,18 @@ pub extern "C" fn wire_passing_complex_structs(port_: i64, root: *mut wire_TreeN
             let api_root = root.wire2api();
             move |task_callback| passing_complex_structs(api_root)
         },
+    )
+}
+
+#[no_mangle]
+pub extern "C" fn wire_hello(port_: i64) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "hello",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| hello(),
     )
 }
 
@@ -232,8 +247,6 @@ pub struct wire_uint_8_list {
     ptr: *mut u8,
     len: i32,
 }
-
-// Section: wire enums
 
 // Section: allocate functions
 
@@ -456,6 +469,7 @@ impl support::IntoDart for TreeNode {
 impl support::IntoDartExceptPrimitive for TreeNode {}
 
 // Section: executor
+
 support::lazy_static! {
     pub static ref FLUTTER_RUST_BRIDGE_HANDLER: support::DefaultHandler = Default::default();
 }
